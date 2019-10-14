@@ -1,0 +1,56 @@
+<a (click)="launchProcess()" class="nav-link nav-icon pointerIcon" aria-label="Init">
+    <clr-icon shape="bolt"></clr-icon>
+</a>
+
+
+<clr-wizard #wizardLaunchProcess [(clrWizardOpen)]="mdOpen" clrWizardSize="xl"
+(clrWizardOnFinish)="doLaunchProcess()">
+    <clr-wizard-title>Launch process</clr-wizard-title>
+
+    <clr-wizard-button [type]="'cancel'">Cancel</clr-wizard-button>
+    <clr-wizard-button [type]="'previous'">Back</clr-wizard-button>
+    <clr-wizard-button [type]="'next'">Next</clr-wizard-button>
+    <clr-wizard-button [type]="'finish'">Finish</clr-wizard-button>
+
+    <clr-wizard-page [clrWizardPageNextDisabled]="!formPageOne.valid">
+        <ng-template clrPageTitle>Choose parameters</ng-template>
+        <div class="fullWidth">
+        <form clrForm class="clr-form clr-form-vertical" clrLayout="vertical" #formPageOne="ngForm">
+            <span class="clr-sr-only">Tabbing through form inputs will trigger validation messages to be read aloud.</span>
+            <clr-input-container>
+                <label>Process Key</label>
+                <input  clrInput type="text" [(ngModel)]="processKey" name="processKey" required />
+                <clr-control-error>Process key is mandatory to be able to run process</clr-control-error>
+            </clr-input-container>
+            <clr-input-container>
+                <label>Number of persons</label>
+                <input clrInput type="number" [(ngModel)]="amount" name="amount" required/>
+                <clr-control-error>Number of persons is mandatory to start transactions and must be a number</clr-control-error>
+            </clr-input-container>
+            <clr-input-container>
+                <label>Process variable name</label>
+                <input clrInput type="text" [(ngModel)]="processVariable" name="processVariable" required />
+                <clr-control-error>You may implement and set at least one process variable to pass amount.</clr-control-error>
+            </clr-input-container>
+        </form>
+      </div>
+    </clr-wizard-page>
+
+    <clr-wizard-page>
+        <ng-template clrPageTitle>Summary</ng-template>
+About to POST a request to <br>
+<span class="url">http://localhost:8080/rest/process-definition/key/{{processKey}}/start</span>
+<br><br> with body :<br>
+        <textarea rows="8" class="bodyOfMessage">{ 
+  "variables": { 
+     "{{processVariable}}" : { 
+       "value": {{amount}},
+       "type": "long" 
+     }
+  } 
+}</textarea>
+    </clr-wizard-page>
+
+    
+</clr-wizard>
+

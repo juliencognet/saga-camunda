@@ -1,0 +1,1 @@
+docker rmi orchestration-demo_orchestrator orchestration-demo_flight-booking orchestration-demo_hotel-booking orchestration-demo_taxi-booking orchestration-demo_meetingroom-booking orchestration-demo_services-monitor

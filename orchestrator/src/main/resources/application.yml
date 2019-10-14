@@ -1,0 +1,14 @@
+camunda:
+  bpm:
+    admin-user:
+      id: admin
+      password: admin
+    filter:
+      create: All tasks
+feign:
+  okhttp:
+    enabled: true
+logging:
+  level:
+    com:
+      jcognet: INFO

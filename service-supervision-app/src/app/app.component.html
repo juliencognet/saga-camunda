@@ -1,0 +1,48 @@
+<div class="main-container">
+  
+  <header class="header header-6">
+  
+      <div class="branding">
+          <clr-icon shape="vm" id="logo"></clr-icon>
+          <span class="title">Booking Saga - Monitoring of booking services</span>
+      </div>
+    
+      <div class="header-actions">
+          <a (click)="initServices()" class="nav-link nav-icon pointerIcon" aria-label="Init">
+              <clr-icon shape="eraser"></clr-icon>
+          </a>
+          <app-launch-process></app-launch-process>
+      </div>
+
+
+  </header>
+  
+  <div class="content-container">
+      <div class="content-area">
+        <div class="clr-row">
+            <div class="clr-col-6">
+                <span>
+                    <app-service-monitor typeOfService="hotel" port="8091"></app-service-monitor>
+                </span>
+            </div>
+          <div class="clr-col-6">
+              <span>
+                <app-service-monitor typeOfService="flight" port="8092"></app-service-monitor>
+              </span>
+          </div>
+        </div>
+        <div class="clr-row">
+          <div class="clr-col-6">
+              <span>
+                  <app-service-monitor typeOfService="taxi" port="8093"></app-service-monitor>
+              </span>
+          </div>
+          <div class="clr-col-6">
+            <span>
+                <app-service-monitor typeOfService="meetingroom" port="8094"></app-service-monitor>
+            </span>
+        </div>
+      </div>  
+     </div>
+  </div>
+</div>

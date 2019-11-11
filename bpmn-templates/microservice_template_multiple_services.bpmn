@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Definitions_0y65oty" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.4.1">
+  <bpmn:process id="bookingSaga" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_1ius3uq</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1ius3uq" sourceRef="StartEvent_1" targetRef="Task_0cae8c4" />
+    <bpmn:sequenceFlow id="SequenceFlow_01fk44q" sourceRef="Task_0cae8c4" targetRef="Task_1eg90zh" />
+    <bpmn:sequenceFlow id="SequenceFlow_1u6cs05" sourceRef="Task_1eg90zh" targetRef="Task_0p2qi03" />
+    <bpmn:serviceTask id="Task_0cae8c4" name="Exécuter service 1" camunda:expression="${bookingClientService.book(execution.getProcessInstanceId(),&#34;http://hotel-booking:8090/api&#34;,nbPeople)}">
+      <bpmn:incoming>SequenceFlow_1ius3uq</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_01fk44q</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_1eg90zh" name="Exécuter service 2" camunda:expression="${bookingClientService.book(execution.getProcessInstanceId(),&#34;http://flight-booking:8090/api&#34;,nbPeople)}">
+      <bpmn:incoming>SequenceFlow_01fk44q</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1u6cs05</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0vdjd54" sourceRef="Task_0p2qi03" targetRef="EndEvent_0848swk" />
+    <bpmn:serviceTask id="Task_0p2qi03" name="Exécuter service 3" camunda:expression="${bookingClientService.book(execution.getProcessInstanceId(),&#34;http://taxi-booking:8090/api&#34;,nbPeople)}">
+      <bpmn:incoming>SequenceFlow_1u6cs05</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0vdjd54</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="EndEvent_0848swk">
+      <bpmn:incoming>SequenceFlow_0vdjd54</bpmn:incoming>
+      <bpmn:terminateEventDefinition />
+    </bpmn:endEvent>
+  </bpmn:process>
+  <bpmn:error id="Error_0zsyq1c" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="bookingSaga">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="180" y="100" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1ius3uq_di" bpmnElement="SequenceFlow_1ius3uq">
+        <di:waypoint x="216" y="118" />
+        <di:waypoint x="270" y="118" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_01fk44q_di" bpmnElement="SequenceFlow_01fk44q">
+        <di:waypoint x="370" y="118" />
+        <di:waypoint x="478" y="118" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1u6cs05_di" bpmnElement="SequenceFlow_1u6cs05">
+        <di:waypoint x="578" y="118" />
+        <di:waypoint x="678" y="118" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_0aa31ui_di" bpmnElement="Task_0cae8c4" bioc:stroke="#1E88E5" bioc:fill="#BBDEFB">
+        <dc:Bounds x="270" y="78" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_0inkyji_di" bpmnElement="Task_1eg90zh" bioc:stroke="#FB8C00" bioc:fill="#FFE0B2">
+        <dc:Bounds x="478" y="78" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0vdjd54_di" bpmnElement="SequenceFlow_0vdjd54">
+        <di:waypoint x="778" y="118" />
+        <di:waypoint x="852" y="118" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_1gt9tfk_di" bpmnElement="Task_0p2qi03" bioc:stroke="#43A047" bioc:fill="#C8E6C9">
+        <dc:Bounds x="678" y="78" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1ymmtxm_di" bpmnElement="EndEvent_0848swk">
+        <dc:Bounds x="852" y="100" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
